@@ -4,6 +4,9 @@ complete_filename=$1
 base_filename=$(basename "$complete_filename")
 temp_dir="temp"
 
+# Print info about the original file
+du -sh "$complete_filename"
+
 # Remove temp dir if it exists
 rm -rf "$temp_dir"
 
@@ -14,7 +17,7 @@ mkdir "$temp_dir"
 pdftocairo "$complete_filename" -jpeg "$temp_dir/"
 
 # Compress each JPEG file
-mogrify -compress JPEG -quality 50 "$temp_dir/*"
+mogrify -compress JPEG -quality 20 "$temp_dir/*"
 
 # Convert each JPEG file to PDF
 mogrify -format pdf "$temp_dir/*"
@@ -27,3 +30,6 @@ pdfunite "$temp_dir"/*.pdf "$output_filename"
 rm -rf "$temp_dir"
 
 echo "Output file is $output_filename"
+
+# Print info about the output file
+du -sh "$output_filename"
