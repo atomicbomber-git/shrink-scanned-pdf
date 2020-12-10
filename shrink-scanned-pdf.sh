@@ -5,7 +5,7 @@ base_filename=$(basename "$complete_filename")
 temp_dir="temp"
 
 # Check if mogrify exists
-if [ ! command -v "mogrify" &> /dev/null ]; then
+if ! command -v "mogrify" &> /dev/null; then
     printf "This script requires the mogrify command to exist."
     exit 1
 fi
